@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { Platform, ToastAndroid } from "react-native";
 
 const baseUrl = "https://api.spaceflightnewsapi.net/v4/articles";
 
@@ -88,6 +89,8 @@ export const useNews = () => {
       const data = (await response.json()) as NewsResult;
       addNews(data.results);
       setNextNewsUrl(data.next);
+    } catch (cause) {
+      setError("Getting more news was failed");
     } finally {
       setIsNextLoading(false);
     }
@@ -96,6 +99,20 @@ export const useNews = () => {
   useEffect(() => {
     getNews();
   }, [getNews]);
+
+  useEffect(() => {
+    if (!error) return;
+
+    if (Platform.OS === "android") {
+      ToastAndroid.showWithGravityAndOffset(
+        error,
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50
+      );
+    }
+  }, [error]);
 
   return { isLoading, news, error, search, next, isNextLoading };
 };
