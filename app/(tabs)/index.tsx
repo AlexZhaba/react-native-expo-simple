@@ -1,38 +1,23 @@
-import { Text, View, TextInput, StyleSheet } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import { Search } from "@/components/Search";
-import { NewsList, NewsProps } from "@/components/NewsList";
+import { NewsList } from "@/components/NewsList";
+import { useNews } from "@/hooks/useNews";
 
 export default function Index() {
-  const newsData: NewsProps[] = [
-    {
-      id: "1",
-      title: "Title #1",
-      description: "Descrtipion #1",
-      date: new Date(),
-    },
-    {
-      id: "2",
-      title: "Title #2",
-      description: "Descrtipion #2",
-      date: new Date(),
-    },
-    {
-      id: "3",
-      title: "Title #3",
-      description: "Descrtipion #3",
-      date: new Date(),
-    },
-    {
-      id: "4",
-      title: "Title #4",
-      description: "Descrtipion #4",
-      date: new Date(),
-    },
-  ];
+  const { news, isLoading, error } = useNews();
+
+  console.log('news', news)
+
   return (
     <View style={styles.container}>
-      <Search />
-      <NewsList data={newsData} />
+      <Search loading={isLoading} />
+      {isLoading ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator size="large" />
+        </View>
+      ) : (
+        <NewsList data={news} />
+      )}
     </View>
   );
 }
@@ -40,5 +25,12 @@ export default function Index() {
 export const styles = StyleSheet.create({
   container: {
     padding: 10,
+    height: '100%'
   },
+  loaderContainer: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

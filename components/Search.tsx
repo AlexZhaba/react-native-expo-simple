@@ -1,12 +1,16 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
-export function Search() {
+interface SearchProps {
+  loading: boolean;
+}
+
+export function Search({ loading }: SearchProps) {
   return (
     <View style={styles.container}>
       <Text>Поиск</Text>
       <View style={styles.searchContainer}>
         <TextInput style={styles.input} />
-        <Button title="Найти"></Button>
+        <Button title="Найти" disabled={loading}></Button>
       </View>
     </View>
   );

@@ -8,31 +8,32 @@ export function NewsList({ data }: { data: NewsProps[] }) {
         ...data,
         key: data.id,
       })),
-    []
+    [data]
   );
   return (
     <View>
       <FlatList
         data={flatListData}
         renderItem={(args) => <NewsItem {...args.item} />}
+        scrollEnabled={true}
       />
     </View>
   );
 }
 
 export interface NewsProps {
-  id: string;
+  id: number;
   title: string;
-  description: string;
-  date: Date;
+  summary: string;
+  published_at: string;
 }
 
-export function NewsItem({ title, description, date }: NewsProps) {
+export function NewsItem({ title, summary, published_at }: NewsProps) {
   return (
     <View style={styles.newsItem}>
       <Text style={styles.newsTitle}>{title}</Text>
-      <Text>{description}</Text>
-      <Text>{date.toISOString()}</Text>
+      <Text>{summary}</Text>
+      <Text>{published_at}</Text>
     </View>
   );
 }
