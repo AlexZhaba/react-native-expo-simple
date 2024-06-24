@@ -3,7 +3,7 @@ import { FlatList, View, Text, StyleSheet, Image } from "react-native";
 import { ButtonWithLoader } from "./button-with-loader";
 import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
-export function NewsList({ data, children }: { data: NewsProps[], children: React.ReactNode }) {
+export function NewsList({ data, children }: { data: NewsProps[], children?: React.ReactNode }) {
   const flatListData = useMemo(
     () =>
       data.map((data) => ({
@@ -15,7 +15,7 @@ export function NewsList({ data, children }: { data: NewsProps[], children: Reac
   return (
     <View style={styles.list}>
       <FlatList<any>
-        data={[...flatListData, { id: 123123123 }]}
+        data={[...flatListData, children ? { id: 123123123 } : undefined].filter(Boolean)}
         renderItem={(args) => args.item.id === 123123123 ? children as any : <NewsItem {...args.item} />}
         scrollEnabled={true}
       />

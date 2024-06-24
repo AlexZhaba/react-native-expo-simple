@@ -9,7 +9,7 @@ interface ButtonWithLoaderProps {
 
 export const ButtonWithLoader = ({ isLoading, onPress, children }: ButtonWithLoaderProps) => {
   return (
-    <TouchableOpacity onPress={onPress} disabled={isLoading}>
+    <TouchableOpacity onPress={onPress} disabled={isLoading} style={{ width: '100%', }}>
       <View style={{
         backgroundColor: isLoading ? "rebeccapurple" : "slateblue",
         ...styles.button,
@@ -30,8 +30,10 @@ export const ButtonWithLoader = ({ isLoading, onPress, children }: ButtonWithLoa
 export const styles = StyleSheet.create({
   button: {
     padding: 10,
+    height: 40,
   },
   text: {
+    textAlign: 'center',
     color: '#fff'
   }
 })

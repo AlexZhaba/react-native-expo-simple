@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Platform, ToastAndroid } from "react-native";
 
 const baseUrl = "https://api.spaceflightnewsapi.net/v4/articles";
@@ -114,5 +114,7 @@ export const useNews = () => {
     }
   }, [error]);
 
-  return { isLoading, news, error, search, next, isNextLoading };
+  const hasNext = useMemo(() => Boolean(nextNewsUrl), [nextNewsUrl]);
+
+  return { isLoading, news, error, search, next, isNextLoading, hasNext };
 };

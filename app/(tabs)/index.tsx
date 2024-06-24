@@ -7,27 +7,28 @@ import { useNews } from "@/hooks/useNews";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 
 export default function Index() {
-  const { news, isLoading, isNextLoading, search, next } = useNews();
+  const { news, isLoading, isNextLoading, search, next, hasNext } = useNews();
 
-  const handleTextInput = _.debounce((text: string) => {
+  const handleTextInput = (text: string) => {
     search(text)
-  }, 1e3);
+  };
 
   return (
     <View style={styles.container}>
-      <Search loading={isLoading} onChangeText={handleTextInput} />
+      <Search loading={isLoading} onPress={handleTextInput} />
       {isLoading ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator size="large" />
         </View>
-      ) : (
-        <NewsList data={news}>
+      ) :
+        hasNext ? (<NewsList data={news} >
           <ButtonWithLoader onPress={next} isLoading={isNextLoading}>
             Load more news
           </ButtonWithLoader>
-        </NewsList>
-      )}
-    </View>
+        </NewsList>) : (
+          <NewsList data={news} />
+        )}
+    </View >
   );
 }
 
