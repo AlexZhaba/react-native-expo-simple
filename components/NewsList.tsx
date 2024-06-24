@@ -1,7 +1,9 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { FlatList, View, Text, StyleSheet, Image } from "react-native";
+import { ButtonWithLoader } from "./button-with-loader";
+import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
-export function NewsList({ data }: { data: NewsProps[] }) {
+export function NewsList({ data, children }: { data: NewsProps[], children: React.ReactNode }) {
   const flatListData = useMemo(
     () =>
       data.map((data) => ({
@@ -11,10 +13,10 @@ export function NewsList({ data }: { data: NewsProps[] }) {
     [data]
   );
   return (
-    <View>
-      <FlatList
-        data={flatListData}
-        renderItem={(args) => <NewsItem {...args.item} />}
+    <View style={styles.list}>
+      <FlatList<any>
+        data={[...flatListData, { id: 123123123 }]}
+        renderItem={(args) => args.item.id === 123123123 ? children as any : <NewsItem {...args.item} />}
         scrollEnabled={true}
       />
     </View>
@@ -58,5 +60,8 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: 200,
     resizeMode: 'cover'
+  },
+  list: {
+    paddingBottom: 80,
   }
 });
