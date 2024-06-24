@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { FlatList, View, Text, StyleSheet } from "react-native";
+import { FlatList, View, Text, StyleSheet, Image } from "react-native";
 
 export function NewsList({ data }: { data: NewsProps[] }) {
   const flatListData = useMemo(
@@ -26,12 +26,17 @@ export interface NewsProps {
   title: string;
   summary: string;
   published_at: string;
+  image_url: string;
 }
 
-export function NewsItem({ title, summary, published_at }: NewsProps) {
+export function NewsItem({ title, summary, published_at, image_url }: NewsProps) {
+  console.log('image_url', image_url)
   return (
     <View style={styles.newsItem}>
       <Text style={styles.newsTitle}>{title}</Text>
+      <Image style={styles.previewImage} source={{
+        uri: image_url
+      }} />
       <Text>{summary}</Text>
       <Text>{published_at}</Text>
     </View>
@@ -49,4 +54,9 @@ export const styles = StyleSheet.create({
   newsTitle: {
     fontSize: 16,
   },
+  previewImage: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover'
+  }
 });

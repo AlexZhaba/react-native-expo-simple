@@ -4,9 +4,7 @@ import { NewsList } from "@/components/NewsList";
 import { useNews } from "@/hooks/useNews";
 
 export default function Index() {
-  const { news, isLoading, error } = useNews();
-
-  console.log('news', news)
+  const { news, isLoading } = useNews();
 
   return (
     <View style={styles.container}>

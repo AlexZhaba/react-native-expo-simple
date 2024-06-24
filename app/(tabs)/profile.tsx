@@ -1,14 +1,28 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useAvatar } from "@/hooks/useAvatar";
+
 
 export default function Profile() {
+  const { fileUri, uploadNewImage } = useAvatar();
+
   return (
     <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/profile-image.png")}
-        resizeMode="cover"
-        style={styles.profileImage}
-      />
+      {fileUri && (
+        <Image
+          source={{
+            uri: fileUri
+          }}
+          resizeMode="cover"
+          style={styles.profileImage}
+        />
+      )}
 
+      <TouchableOpacity
+        onPress={uploadNewImage}>
+        <Text>
+          Choose Image
+        </Text>
+      </TouchableOpacity>
       <Text style={styles.name}>AlexZhaba</Text>
     </View>
   );
