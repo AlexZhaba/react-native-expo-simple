@@ -1,3 +1,4 @@
+import { getNewsListUrl } from "@/utils/news";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Platform, ToastAndroid } from "react-native";
 
@@ -16,20 +17,6 @@ interface NewsResult {
   results: News[];
   next: string;
 }
-
-const getNewsListUrl = (limit: number, offset?: number, search?: string) => {
-  const newsUrl = "https://api.spaceflightnewsapi.net/v4/articles/?";
-
-  const searchParams = new URLSearchParams();
-  searchParams.append("limit", String(limit));
-  searchParams.append("offset", String(offset));
-
-  if (search) {
-    searchParams.append("search", search);
-  }
-
-  return `${newsUrl}${searchParams.toString()}`;
-};
 
 export const useNews = () => {
   const [isLoading, setIsLoading] = useState(false);

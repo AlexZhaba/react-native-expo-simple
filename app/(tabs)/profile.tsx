@@ -14,11 +14,14 @@ export default function Profile() {
           }}
           resizeMode="cover"
           style={styles.profileImage}
+          testID="profileImage"
         />
       )}
 
       <TouchableOpacity
-        onPress={uploadNewImage}>
+        onPress={uploadNewImage}
+        testID="chooseImageButton"
+      >
         <Text>
           Choose Image
         </Text>

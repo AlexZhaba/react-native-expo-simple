@@ -1,7 +1,5 @@
 import React, { useMemo } from "react";
 import { FlatList, View, Text, StyleSheet, Image } from "react-native";
-import { ButtonWithLoader } from "./button-with-loader";
-import { red } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
 
 export function NewsList({ data, children }: { data: NewsProps[], children?: React.ReactNode }) {
   const flatListData = useMemo(
